@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import { SidebarProvider, Sidebar, SidebarTrigger } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,10 +28,52 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-center align-middle items-center `}
       >
-        {children}
+        <main className=" bg-cover w-screen h-full bg-center bg-fixed"
+          style={{ backgroundImage: `url(background.jpg)` }}
+        >
+          <div className="   bg-black/50  flex flex-col items-center">
+
+
+            <nav className=" nav-bar">
+              <Link className="flex-1"
+                href={'/about'}>
+                <Button className="nav-button">
+
+                  <p>About</p>
+
+                </Button>
+              </Link>
+              <Link className="flex-1"
+                href={'/'}>
+                <Button className="nav-button">
+
+                  <p>Home</p>
+
+                </Button>
+              </Link>
+              <Link className="flex-1"
+                href={'/my-books'}>
+                <Button className="nav-button">
+
+                  <p>My Books</p>
+
+                </Button>
+              </Link>
+            </nav>
+
+            <div className=" w-screen h-screen flex flex-col items-center justify-top text-center mt-[60px]">
+
+              {children}
+            </div>
+
+
+          </div>
+
+
+        </main>
       </body>
-    </html>
+    </html >
   );
 }
