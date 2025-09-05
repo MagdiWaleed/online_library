@@ -1,22 +1,18 @@
-import { getRecommendations } from "@/agents/booksAgent/tool";
+import getAgent from "@/agents/booksAgent/agent";
 import { Button } from "@/components/ui/button";
 import { getDatabase } from "@/lib/mongodb";
+import { HumanMessage } from "@langchain/core/messages";
 
 
 export default async function about() {
-    const db = await getDatabase();
-    const books = await db.collection("books").find({}).toArray();
-    console.log(books);
+    const agent = getAgent()
+    const response = await agent.invoke({ messages: [new HumanMessage("what is the types of books you have")] });
+    console.log(response.messages[response.messages.length - 1].content)
 
     return (
         <>
             <div>
 
-                {books.map((book) => (
-                    <div key={book._id.toString()}>
-                        {JSON.stringify(book)}
-                    </div>
-                ))}
 
             </div>
         </>

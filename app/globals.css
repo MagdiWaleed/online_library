@@ -134,9 +134,12 @@
 @apply  text-white text-4xl
 }
 .nav-bar  p{
-  @apply from-orange-500 to-slate-600  bg-gradient-to-br bg-clip-text text-transparent 
+  @apply from-orange-500 to-slate-200  bg-gradient-to-br bg-clip-text text-transparent 
 }
-
+.grediant{
+  @apply  from-orange-500 to-slate-200  bg-gradient-to-br bg-clip-text text-transparent 
+;
+}
 body {
   @apply bg-black
 }
