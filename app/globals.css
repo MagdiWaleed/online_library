@@ -123,18 +123,18 @@
 
 
 .nav-bar{
-  @apply flex flex-row max-w-[600px] mx-10 min-w-[500px] fixed;
+  @apply flex flex-row max-w-[800px] mx-auto  min-w-[600px] fixed right-0 left-0 top-0 z-60 bg-black/80 hover:bg-transparent;
 }
 
 .nav-button {
- @apply w-full hover:cursor-pointer bg-transparent hover:bg-black/30 py-[30px];
+ @apply w-full hover:cursor-pointer bg-transparent hover:bg-black/80 py-[30px] hover:py-[40px] font-bold ;
 }
 
 .p{
 @apply  text-white text-4xl
 }
 .nav-bar  p{
-  @apply from-orange-500 to-slate-600  bg-gradient-to-br bg-clip-text text-transparent
+  @apply from-orange-500 to-slate-600  bg-gradient-to-br bg-clip-text text-transparent 
 }
 
 body {

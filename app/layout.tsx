@@ -30,40 +30,43 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-center align-middle items-center `}
       >
-        <main className=" bg-cover w-screen h-full bg-center bg-fixed"
+        <main className=" bg-cover w-screen h-full bg-center bg-fixed "
           style={{ backgroundImage: `url(background.jpg)` }}
         >
           <div className="   bg-black/50  flex flex-col items-center">
 
+            <div>
 
-            <nav className=" nav-bar">
-              <Link className="flex-1"
-                href={'/about'}>
-                <Button className="nav-button">
 
-                  <p>About</p>
+              <nav className=" nav-bar rounded-b-[100px]">
+                <Link className="flex-1"
+                  href={'/about'}>
+                  <Button className="nav-button rounded-bl-[100px]">
 
-                </Button>
-              </Link>
-              <Link className="flex-1"
-                href={'/'}>
-                <Button className="nav-button">
+                    <p>About</p>
 
-                  <p>Home</p>
+                  </Button>
+                </Link>
+                <Link className="flex-1"
+                  href={'/'}>
+                  <Button className="nav-button">
 
-                </Button>
-              </Link>
-              <Link className="flex-1"
-                href={'/my-books'}>
-                <Button className="nav-button">
+                    <p>Home</p>
 
-                  <p>My Books</p>
+                  </Button>
+                </Link>
+                <Link className="flex-1"
+                  href={'/my-books'}>
+                  <Button className="nav-button rounded-br-[100px]">
 
-                </Button>
-              </Link>
-            </nav>
+                    <p>My Books</p>
 
-            <div className=" w-screen h-screen flex flex-col items-center justify-top text-center mt-[60px]">
+                  </Button>
+                </Link>
+              </nav>
+
+            </div>
+            <div className=" w-screen min-h-screen flex flex-col items-center justify-top text-center mt-[60px]">
 
               {children}
             </div>
