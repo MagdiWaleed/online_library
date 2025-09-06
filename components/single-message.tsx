@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 import { Card, CardContent } from "./ui/card";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { useRouter } from "next/navigation";
+
 
 export interface Message {
     message: any;
@@ -14,36 +18,52 @@ export interface Message {
 
 
 export const SingleMessage = ({ role, message, timestamp, imgUrl, bookId }: Message) => {
+    const router = useRouter();
     let books: any[] = []
     let bookUrl: string = "none";
     if (role == "recommendation") {
         books = message
         if (books.length > 3) {
+            books.reverse()
             books = books.slice(0, 3)
         }
     }
-    if (role == "ai+book") {
-        bookUrl = `url(${imgUrl})`!
-    }
+    if (role == "ai+book" && imgUrl == "") {
+        role = "ai";
+    } else
+        if (role == "ai+book") {
+            bookUrl = `url(${imgUrl})`!
+        }
     return (
         <>
             {role != "recommendation" ?
 
                 (
                     <div
-
+                        onClick={() => {
+                            if (bookId != undefined && role == "ai+book") {
+                                router.push(`/${bookId}`);
+                            }
+                        }}
                         style={
                             { backgroundImage: bookUrl }
                         }
 
                         className={`relative p-3 my-2 max-w-[80%] rounded-xl ${role === "user"
                             ? "bg-orange-600 text-white ml-auto rounded-br-none"
-                            : role == "ai+book" ? " text-white mr-auto rounded-bl-none bg-[]  bg-cover w-[250px] hover:w-[260px]   cursor-pointer transition-all duration-1000 ease-in-out transform hover:translate-y-0 translate-y-[5px] hover:py-[15px] hover:px-[15px]" ://hover:scale-110
+                            : role == "ai+book" ? " text-white mr-auto rounded-bl-none bg-[] bg-center  bg-cover w-[250px] hover:w-[260px]   cursor-pointer transition-all duration-500 ease-in-out transform hover:translate-y-0 translate-y-[5px] hover:py-[15px] hover:px-[15px]" ://hover:scale-110
                                 "bg-gray-700 text-white mr-auto rounded-bl-none"
                             }`}
 
-                    >  {role == "ai+book" ? <div className="absolute rounded-xl rounded-bl-none inset-0 bg-black/70 border-2 pointer-events-none"></div> : <div></div>}
-                        <div className=" relative text-sm z-60">{message}</div>
+                    >  {role == "ai+book" ? <div className="absolute rounded-xl rounded-bl-none inset-0 from-blue-800/75 to-black/70  bg-gradient-to-br border-2 pointer-events-none"></div> : <div></div>}
+                        <div className="relative text-sm z-60 prose text-left prose-invert max-w-none">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {message}
+                            </ReactMarkdown>
+                        </div>
+
+                        {/* <div className=" relative text-sm z-60">{message}</div> */}
+
                         {timestamp && (
                             <div
                                 className={`text-xs mt-1 opacity-70 ${role === "user" ? "text-blue-100 " : "text-gray-300"

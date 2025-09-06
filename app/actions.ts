@@ -20,19 +20,19 @@ export async function getAllBooks(){
 }
 
 
-// export async function getAllBookTitles(){
-//     try{
-//         const books = await prisma.books.findMany({
-//             select:{
-//                 title:true,
-//             }
-//         })
-//         return books
-//     }catch(error){
-//         console.error("error in fetch books: ",error)
-//         throw new Error("failed to fetch books");
-//     }
-// }
+export async function getAllBookTitles(){
+    try{
+        const books = await prisma.books.findMany({
+            select:{
+                title:true,
+            }
+        })
+        return books
+    }catch(error){
+        console.error("error in fetch books: ",error)
+        throw new Error("failed to fetch books");
+    }
+}
 
 export async function getBookDetails(book_id:string){
     try{
@@ -89,11 +89,13 @@ export async function getTheBookText(book_id: string) {
     }
 }
 
-export async function getBookPages(book_id: string,fromPage:number, toPage:number) {
+export async function getBookPages(book_title: string,fromPage:number, toPage:number) {
 
     try {
-    const book = await prisma.books.findUnique({
-    where: { id: book_id },
+    const book = await prisma.books.findFirst({
+    where: { title: {
+       contains: book_title,
+    mode: "insensitive" } },
     select: { pages: true },
     })
     return book?.pages.slice(fromPage,toPage)
@@ -107,14 +109,11 @@ export async function getBookPages(book_id: string,fromPage:number, toPage:numbe
 export async function getBooksBySubjectAndCategory( recommendations: string[]) {
 
     try {
-    const books = await prisma.books.findMany({
+    const books1 = await prisma.books.findMany({
         where: {
             subjects: {
             hasSome: recommendations,
             },
-            bookshelves:{
-                hasSome:recommendations,
-            }
         },
          select:{
                 title:true,
@@ -126,7 +125,51 @@ export async function getBooksBySubjectAndCategory( recommendations: string[]) {
             }
         
         });
-    return books
+    const books2 = await prisma.books.findMany({
+        where: {
+            bookshelves: {
+            hasSome: recommendations,
+            },
+        },
+         select:{
+                title:true,
+                imageUrl:true,
+                id:true,
+                author:true,
+                subjects:true,
+                bookshelves:true
+            }
+        
+        });
+        const books = [...books1,...books2]
+        const combinedUnique = books.filter(
+            (book, index, self) => index === self.findIndex(b => b.id === book.id)
+            );
+    return combinedUnique
+
+    }catch(error){
+        console.error("error in fetch books: ",error)
+        throw new Error("failed to fetch books");
+    }
+}
+
+export async function getBookSubjectAndCategory( title: string) {
+
+    try {
+    const book = await prisma.books.findFirst({
+        where: {
+            title:{
+            contains:title
+            }
+        },
+         select:{
+                author:true,
+                subjects:true,
+                bookshelves:true
+            }
+        
+        });
+    return book
 
     }catch(error){
         console.error("error in fetch books: ",error)

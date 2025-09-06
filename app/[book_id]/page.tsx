@@ -5,7 +5,7 @@ import { getBookDetails, getBooksBySubjectAndCategory } from "../actions";
 export default async function Page({ params }: { params: { book_id: string } }) {
     const { book_id } = await params
     const book = await getBookDetails(book_id);
-    const books = await getBooksBySubjectAndCategory(book.subjects, book.bookshelves)
+    const books = await getBooksBySubjectAndCategory([...book.subjects, ...book.bookshelves])
     return (
         <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex flex-col items-center py-12 px-4">
             {/* background glow */}
