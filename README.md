@@ -1,3 +1,4 @@
+![background](https://github.com/user-attachments/assets/373e475b-1a81-49b8-a6b4-7ce970fb9aa4)
 # 📚 Library Website with AI Chatbot
 
 A **Next.js + MongoDB** powered library website enhanced with an **agentic AI chatbot**.
