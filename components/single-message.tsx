@@ -24,7 +24,7 @@ export const SingleMessage = ({ role, message, timestamp, imgUrl, bookId }: Mess
     if (role == "recommendation") {
         books = message
         if (books.length > 3) {
-            books.reverse()
+            books = books.reverse()
             books = books.slice(0, 3)
         }
     }
