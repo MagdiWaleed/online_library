@@ -21,7 +21,7 @@ The chatbot leverages **LangChain / LangGraph** to provide intelligent book-rela
 
    ```bash
    git clone https://github.com/MagdiWaleed/online_library.git
-   cd your-repo-name
+   cd online_library
    ```
 
 2. Install dependencies:
@@ -37,10 +37,6 @@ The chatbot leverages **LangChain / LangGraph** to provide intelligent book-rela
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-## ⚡ Deployment
-
-The easiest way to deploy is via [Vercel](https://vercel.com/), the creators of Next.js.
 
 ---
 
@@ -59,7 +55,12 @@ The easiest way to deploy is via [Vercel](https://vercel.com/), the creators of 
 * 🌐 Add user authentication for personalized recommendations.
 * 📕 Integrate **borrowing books** functionality using the agentic chatbot, along with other exciting features.
 
-![Library Website Preview](https://via.placeholder.com/800x400.png?text=Library+AI+Website+Preview)
+---
+
+## 👤 Author
+
+* **Magdi Waleed** – [GitHub](https://github.com/MagdiWaleed) | [LinkedIn](https://www.linkedin.com/in/magdi-waleed) | [Gmail](m.w.m.khalafallah@gmail.com)
+* Feel free to contact me for more details
 
 ---
 
