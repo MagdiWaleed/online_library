@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 Library Website with AI Chatbot
 
-## Getting Started
+A **Next.js + MongoDB** powered library website enhanced with an **agentic AI chatbot**.
+The chatbot leverages **LangChain / LangGraph** to provide intelligent book-related assistance.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* 🔍 **Book Recommendations** – Get personalized book suggestions.
+* 📖 **Book Summaries** – Receive brief descriptions of books.
+* 📝 **Book Recaps** – Generate concise recaps of a given book.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **[Next.js](https://nextjs.org/)** – React-based framework for frontend & backend.
+* **[MongoDB](https://www.mongodb.com/)** – Database for storing books and user data.
+* **[LangChain](https://www.langchain.com/)** & **[LangGraph](https://www.langchain.com/langgraph)** – Agentic reasoning and chatbot orchestration.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Project Setup
 
-## Learn More
+1. Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. Run the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## ⚡ Deployment
+
+The easiest way to deploy is via [Vercel](https://vercel.com/), the creators of Next.js.
+
+---
+
+## 📖 Learn More
+
+* [Next.js Documentation](https://nextjs.org/docs)
+* [LangChain Docs](https://docs.langchain.com/)
+* [LangGraph Docs](https://www.langchain.com/langgraph)
+
+---
+
+## ✨ Future Improvements
+
+* 📚 Add more detailed metadata for books.
+* 🤖 Enhance chatbot reasoning with custom tools.
+* 🌐 Add user authentication for personalized recommendations.
+* 📕 Integrate **borrowing books** functionality using the agentic chatbot, along with other exciting features.
+
+![Library Website Preview](https://via.placeholder.com/800x400.png?text=Library+AI+Website+Preview)
+
+---
+
+💡 Contributions, issues, and feature requests are welcome!
