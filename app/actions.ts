@@ -2,6 +2,7 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+
 export async function getAllBooks(){
     try{
         const books = await prisma.books.findMany({
@@ -17,6 +18,22 @@ export async function getAllBooks(){
         throw new Error("failed to fetch books");
     }
 }
+
+
+// export async function getAllBookTitles(){
+//     try{
+//         const books = await prisma.books.findMany({
+//             select:{
+//                 title:true,
+//             }
+//         })
+//         return books
+//     }catch(error){
+//         console.error("error in fetch books: ",error)
+//         throw new Error("failed to fetch books");
+//     }
+// }
+
 export async function getBookDetails(book_id:string){
     try{
         const books = await prisma.books.findMany({
@@ -40,6 +57,23 @@ export async function getBookDetails(book_id:string){
     }
 }
 
+export async function getTheBookSummaryByTitle(book_title: string) {
+
+    try {
+    const book = await prisma.books.findFirst({
+    where: { title:{
+       contains: book_title,
+        mode: "insensitive"   } 
+    },
+    select: { summary: true, imageUrl:true, id:true},
+    })
+    return book
+
+    }catch(error){
+        console.error("error in fetch books: ",error)
+        throw new Error("failed to fetch books");
+    }
+}
 export async function getTheBookText(book_id: string) {
 
     try {
@@ -87,6 +121,8 @@ export async function getBooksBySubjectAndCategory( recommendations: string[]) {
                 imageUrl:true,
                 id:true,
                 author:true,
+                subjects:true,
+                bookshelves:true
             }
         
         });

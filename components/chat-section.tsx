@@ -57,35 +57,87 @@ export const ChatSection = () => {
         setIsLoading(true);
         const currentHumanMessage = new HumanMessage(inputValue);
         console.log("id is ", sessionId)
-        const res = await fetch("/api/agent", {
-            method: "POST",
-            body: JSON.stringify({
-                message: currentHumanMessage,
-            }),
-            headers: {
-                'x-session-id': sessionId,
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-            },
-            cache: "no-store",
-        });
-        const data = await res.json();
 
-        setSessionId(data.sessionId);
+        try {
 
-        const aiMessage = data.response;
 
-        const newAiMessage: Message = {
-            role: "ai",
-            message: aiMessage,
-            timestamp: new Date()
-        };
-        setMessages(prev => [...prev, newAiMessage]);
-        setIsLoading(false);
+            const res = await fetch("/api/agent", {
+                method: "POST",
+                body: JSON.stringify({
+                    message: currentHumanMessage,
+                }),
+                headers: {
+                    'x-session-id': sessionId,
+                    "Content-Type": "application/json",
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                },
+                cache: "no-store",
+            });
+            console.log(res.status)
+            const data = await res.json();
+
+            if (res.status == 500) {
+                throw new Error(data['error'])
+            }
+
+
+            setSessionId(data.sessionId);
+            console.log("bokks: ", data.books)
+            console.log("bokks have them: ", data.haveBooks)
+
+
+            if (data.haveBookUrl) {
+                const aiMessage = data.response;
+
+                const newAiMessage: Message = {
+                    role: "ai+book",
+                    message: aiMessage,
+                    timestamp: new Date(),
+                    bookId: data.id,
+                    imgUrl: data.bookUrl,
+                };
+                console.log(newAiMessage);
+                setMessages(prev => [...prev, newAiMessage]);
+
+                console.log(messages)
+            }
+
+            else if (data.haveBooks) {
+                const books = data.books;
+
+                const newRecommendationMessage: Message = {
+                    role: "recommendation",
+                    message: books,
+                    timestamp: new Date()
+                };
+                console.log("recommendation object: ", newRecommendationMessage)
+                setMessages(prev => [...prev, newRecommendationMessage]);
+            } else {
+                const aiMessage = data.response;
+
+                const newAiMessage: Message = {
+                    role: "ai",
+                    message: aiMessage,
+                    timestamp: new Date()
+                };
+                setMessages(prev => [...prev, newAiMessage]);
+            }
+
+            setIsLoading(false);
+        } catch (e) {
+            throw new Error(`error after having the data from the backend: ${e}`)
+        }
+
 
 
 
     };
+
+
+
+
+
+
     return (
         <div className="flex flex-col h-[500px] w-[350px] bg-gray-900/50 rounded-2xl overflow-hidden shadow-lg">
 
@@ -103,6 +155,8 @@ export const ChatSection = () => {
                         role={message.role}
                         message={message.message}
                         timestamp={message.timestamp}
+                        imgUrl={message.imgUrl}
+                        bookId={message.bookId}
                     />
                 ))}
 
@@ -119,7 +173,7 @@ export const ChatSection = () => {
                             await handleKeyDown(e);
                         }}
                         placeholder={!isLoading ? "Type your message..." : "KnowledgeAi is Thinking....."}
-                        className="flex-1 bg-gray-700 text-white placeholder-gray-400 p-3 rounded-lg resize-none overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-gray-800 "
+                        className="flex-1 bg-gray-700 text-white placeholder-gray-400 p-3 rounded-lg resize-none overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-gray-800 disabled:animate-pulse"
                         rows={1}
                         autoFocus
                         disabled={isLoading}
