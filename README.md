@@ -20,7 +20,7 @@ The chatbot leverages **LangChain / LangGraph** to provide intelligent book-rela
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/MagdiWaleed/online_library.git
    cd your-repo-name
    ```
 
