@@ -1,4 +1,4 @@
-import { getAllUniqueBookshelve, getAllUniqueSubjects } from "@/app/actions";
+import { getAllUniqueBookshelve, getAllUniqueSubjects, getBooksBySubjectAndCategory } from "@/app/actions";
 import { DynamicTool } from "@langchain/core/tools";
 
 async function getSubjectsAndRecommendations(): Promise<string> {
@@ -11,11 +11,21 @@ async function getSubjectsAndRecommendations(): Promise<string> {
     
     return result
 }
+async function getRecommendationByRecommendations(recommendations:string[]): Promise<string> {
+    const recommendationBooks = await getBooksBySubjectAndCategory(recommendations);
+    
+
+    const result = `All Subjects: \n${allSubjectsString} \n All Book Shelves: \n ${allBookshelve}`;
+    
+    return result
+}
+
 
 export const recommendationsTool = new DynamicTool({
   name: "getAllSubjectsAndBookshelves",
   description: "Returns all unique subjects and bookshelves as a formatted string.",
   func: getSubjectsAndRecommendations, 
 });
+
 
 
