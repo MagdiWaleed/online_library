@@ -3,23 +3,24 @@ import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { getAllBooks } from "./actions";
-import getAgent from "@/agents/booksAgent/agent";
 import { HumanMessage } from "@langchain/core/messages";
+import { ChatSection } from "@/components/chat-section";
 
 export default async function page() {
     const books = await getAllBooks()
+    // const [lastMessage, setLastMessage] = React.useState<string>("");
 
     return (
-        <div className="mt-[50px] max-w-[800px] min-w-[600px]">
-            <div className="flex flex-row">
+        <div className="relative flex-row">
 
+            <div className="mt-[50px] max-w-[800px] min-w-[600px]">
                 <p className="p">Welcome To The Library</p>
                 <div className="h-[40px]"></div>
 
 
                 <div className="h-[20px]"></div>
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4 justify-items-center">
-                    {books.map((book, idx) => (
+                    {books.map((book: { title: string, id: string, imageUrl: string }, idx: number) => (
                         <Link key={book.id} href={`/${book.id}`}>
                             <Card
                                 className={`
@@ -58,12 +59,12 @@ export default async function page() {
                     ))}
                 </div>
 
-            </div>
-            <div className="bg-green-600">
-                ChatComponent
-            </div>
+            </div >
+            <div className="fixed right-0 bottom-0">
 
-        </div >
+                <ChatSection />
+            </div>
+        </div>
 
     )
 }

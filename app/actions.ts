@@ -70,16 +70,16 @@ export async function getBookPages(book_id: string,fromPage:number, toPage:numbe
     }
 }
 
-export async function getBooksBySubjectAndCategory( subjects:string[], bookshelves: string[]) {
+export async function getBooksBySubjectAndCategory( recommendations: string[]) {
 
     try {
     const books = await prisma.books.findMany({
         where: {
             subjects: {
-            hasSome: subjects,
+            hasSome: recommendations,
             },
             bookshelves:{
-                hasSome:bookshelves,
+                hasSome:recommendations,
             }
         },
          select:{
@@ -90,9 +90,6 @@ export async function getBooksBySubjectAndCategory( subjects:string[], bookshelv
             }
         
         });
-    console.log(bookshelves)
-    console.log(subjects)
-    console.log(books)
     return books
 
     }catch(error){
@@ -106,8 +103,8 @@ export async function getAllUniqueSubjects() {
     select: { subjects: true },
   });
 
-  const allSubjects = books.flatMap(book => book.subjects);
-  const uniqueSubjects = Array.from(new Set(allSubjects));  // remove duplicates
+  const allSubjects = books.flatMap((book:{subjects:string[] | null}) => book.subjects || []);
+  const uniqueSubjects = Array.from(new Set(allSubjects));  
 
   return uniqueSubjects;
 }
@@ -117,8 +114,8 @@ export async function getAllUniqueBookshelve() {
     select: { bookshelves: true },
   });
 
-  const allBookshelve = books.flatMap(book => book.bookshelves);
-  const uniqueBookshelve = Array.from(new Set(allBookshelve));  // remove duplicates
+const allBookshelve = books.flatMap((book: { bookshelves: string[] | null }) => book.bookshelves || [])
+  const uniqueBookshelve = Array.from(new Set(allBookshelve));  
 
   return uniqueBookshelve;
 }

@@ -1,3 +1,4 @@
+
 import { AgentState } from "./schema";
 import { recommendationsTool } from "./tool";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
@@ -24,18 +25,27 @@ async function llmCall(state: typeof AgentState.State){
         `)
     const messages = state.messages;
     const response =await llm_with_tools.invoke([systemMessage,...messages])
-    messages.push(response)
-    return {messages: messages}
+    return {messages: [...messages ,response]}
 }
 async function shouldContinue(state: typeof AgentState.State) {
     const messages: BaseMessage[] = state.messages;
     const lastMessage = messages[messages.length - 1];
-
+    // console.log("")
+    // console.log("")
+    // console.log("")
+    // console.log("")
+    // console.log("")
+    // console.log("messages lengths: ",messages.length)
+    // console.log("messages lengths: ",messages)
+    // console.log("lastMessage in agent: ",lastMessage)
     if (
         !(lastMessage as AIMessage).tool_calls?.length
-    ) {
+    ) { 
+        // console.log("im on end")
+        
         return END;
     } else {
+        // console.log("tring to call tool")
         return "tools";
     }
 
