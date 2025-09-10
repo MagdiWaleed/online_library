@@ -11,7 +11,7 @@ import { ToolCall } from "@langchain/core/messages/tool";
 
 
 const llm = new ChatGoogleGenerativeAI({
-    model: "gemini-2.5-pro",
+    model: "gemini-2.5-flash",
     apiKey: process.env['GOOGLE_API_KEY'],
     temperature:0,
 
