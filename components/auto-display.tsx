@@ -12,7 +12,6 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
-import { Book } from "@/models/book_model";
 
 
 const AutoDisplay = ({ books }: { books: any[] }) => {

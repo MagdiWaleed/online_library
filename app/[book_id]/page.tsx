@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getBookDetails, getBooksBySubjectAndCategory } from "../actions";
 
-export default async function Page({ params }: { params: { book_id: string } }) {
+export default async function Page({ params }: { params: Promise<{ book_id: string }> }) {
     const { book_id } = await params
     const book = await getBookDetails(book_id);
     const books = await getBooksBySubjectAndCategory([...book.subjects, ...book.bookshelves])

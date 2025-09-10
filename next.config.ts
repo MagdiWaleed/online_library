@@ -5,10 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "www.gutenberg.org",
-      "covers.openlibrary.org", 
+      "covers.openlibrary.org",
     ],
   },
-
 };
 
 export default nextConfig;

@@ -1,3 +1,5 @@
+export const runtime = 'nodejs';
+
 import getAgent  from "@/agents/booksAgent/agent";
 import { BaseMessage } from "@langchain/core/messages";
 import { v4 as uuidv4 } from "uuid";
