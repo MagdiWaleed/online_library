@@ -4,6 +4,8 @@
 A **Next.js + MongoDB** powered library website enhanced with an **agentic AI chatbot**.
 The chatbot leverages **LangChain / LangGraph** to provide intelligent book-related assistance.
 
+> [demo](https://youtu.be/PqajPVMujbw)
+
 ## 🚀 Features
 
 * 🔍 **Book Recommendations** – Get personalized book suggestions.
